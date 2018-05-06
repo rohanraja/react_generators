@@ -10,20 +10,26 @@ class React < Thor
     define_name_vars(name)
     define_component_vars
 
+    generate_react_redux_component()
+    generate_store_parts()
+
+    linkReducer(name, @reducerName, @stateName)
+  end
+
+private
+
+  def generate_react_redux_component
+
     template("component/index.js", "#{comp_dir}/index.js")
     template("component/types.js", "#{comp_dir}/types.js")
     template("component/reducers.js", comp_filepath(@reducer_file) )
     template("component/actions.js", "#{comp_dir}/actions.js")
     create_file("#{comp_dir}/#{@name_l}.css")
-
-    copy_file("store/rootReducer.js", rootReducerPath, {:skip => true})
-
-
-    linkReducer(name, @reducerName, @stateName)
   end
 
-
-private
+  def generate_store_parts
+    copy_file("store/rootReducer.js", rootReducerPath, {:skip => true})
+  end
 
   def comp_filepath(compFile, relative_level = -1, showExtension = true)
     outFile = "#{comp_dir(relative_level)}/#{@reducer_file}"
