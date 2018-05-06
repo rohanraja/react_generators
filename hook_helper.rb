@@ -26,6 +26,15 @@ class HooksHelper
 
   end 
 
+  def addFileAfterHook(filePath, hookName, fileToAdd)
+
+    File.open(fileToAdd, 'r') do |file|
+      file.each_line do |line|
+        addLineAfterHook(filePath, hookName, line)
+      end
+    end
+  end
+
 private
 
   def hook_str(name)
