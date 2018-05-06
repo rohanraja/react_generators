@@ -16,8 +16,10 @@ class React < Thor
     template("component/actions.js", "#{comp_dir}/actions.js")
     create_file("#{comp_dir}/#{@name_l}.css")
 
-    reducerName = "SampleReducer"
-    linkReducer(name, reducerName, "ival")
+    copy_file("store/rootReducer.js", rootReducerPath, {:skip => true})
+
+
+    linkReducer(name, @reducerName, @stateName)
   end
 
 
@@ -46,6 +48,8 @@ private
 
   def define_component_vars()
     @reducer_file = "reducers.js"
+    @reducerName = "#{@name_p}Reducer"
+    @stateName = @name_l
 
   end
 
@@ -54,6 +58,10 @@ private
     @name_p = name.capitalize
     @name_l = name.downcase
 
+  end
+
+  def rootReducerPath
+    "src/store/rootReducer.js"
   end
 
   def linkReducer(componentName, reducerName, stateVarName = "")
@@ -72,7 +80,6 @@ private
     say @reducerDictLine, :yellow
 
     hooksHelper = HooksHelper.new
-    rootReducerPath = "templates/store/rootReducer.js"
 
     hooksHelper.addLineAfterHook(rootReducerPath, "import", @import_statemeht)
     hooksHelper.addLineAfterHook(rootReducerPath, "reducerLine", @reducerDictLine)
