@@ -2,17 +2,7 @@ class React < Thor
   include Thor::Actions
   source_root File.expand_path('templates', __dir__)
 
-  
-  desc "Test Mathod", "example method to learn thor"
-  method_option :delete, :aliases => "-d", :desc => "Delete the file after parsing it"
-  def test()
-    @name = "Rohan"
-    template("simplefile.rb", "files/morefiles/simplefile.rb")
-  end
-
-
-
-  desc "Create React-Redux Component", ""
+  desc "Create React-Redux Component", "Define connected react component along with placeholders for actions, reducers and types"
   def component(name)
 
     define_name_vars(name)
