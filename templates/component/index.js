@@ -12,7 +12,7 @@ export class <%= @name_p %> extends Component {
   render() {
     return (
       <div className={styles.base}>
-        
+        Contents for <%= @name_p %> go here!
       </div>
     );
   }
