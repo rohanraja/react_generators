@@ -1,5 +1,11 @@
 module Story
 
+  def addStory_main(componentName)
+    compInitialize(componentName)
+    generate_story_file(componentName)
+    link_story_file(componentName)
+  end
+
   def generate_story_parts
     copy_file("story/config.js", storyConfigPath, {:skip => true})
   end

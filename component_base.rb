@@ -1,6 +1,12 @@
 module ComponentBase
   include Thor::Actions
 
+
+  def compInitialize(componentName)
+    define_name_vars(componentName)
+    define_component_vars
+  end
+
   def define_component_vars()
     @reducer_file = "reducers.js"
     @actions_file = "actions.js"

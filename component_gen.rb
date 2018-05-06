@@ -1,5 +1,14 @@
 module ComponentGen
 
+  def component_main(componentName)
+    compInitialize(componentName)
+
+    generate_react_redux_component()
+    generate_store_parts()
+    linkReducer(componentName, @reducerName, @stateName)
+    addStory(componentName)
+  end
+
   def generate_react_redux_component
 
     template("component/index.js", comp_filepath(@index_file))

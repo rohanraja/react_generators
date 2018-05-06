@@ -1,5 +1,13 @@
 module ActionCreator
 
+  def actionCreator_main(componentName, actionCreatorName)
+
+    compInitialize(componentName)
+    generate_action_creator(componentName, actionCreatorName)
+    add_action_import_statement(componentName, actionCreatorName)
+
+  end
+
   def generate_action_creator(componentName, actionCreatorName)
 
     @actionCreatorName = actionCreatorName

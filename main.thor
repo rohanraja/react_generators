@@ -17,44 +17,20 @@ class React < Thor
   source_root File.expand_path('templates', __dir__)
 
   desc "Create React-Redux Component", "Define connected react component along with placeholders for actions, reducers and types"
-  def component(name)
-
-    define_name_vars(name)
-    define_component_vars
-
-    generate_react_redux_component()
-    generate_store_parts()
-
-    linkReducer(name, @reducerName, @stateName)
-
-    addStory(name)
+  def component(componentName)
+    component_main(componentName)
   end
 
   desc "Add Action Creator", "Generates an action creator method, imports that in component and connects it to react"
   def actionCreator(componentName, actionCreatorName)
     say "Creating #{actionCreatorName} method for #{componentName} component", :green
-
-    define_name_vars(componentName)
-    define_component_vars
-
-    generate_action_creator(componentName, actionCreatorName)
-    add_action_import_statement(componentName, actionCreatorName)
-
-
+    actionCreator_main(componentName, actionCreatorName)
   end
 
   desc "addStory", "Adds the component to the storybook for manual UI test"
   def addStory(componentName)
-
     say "Creating Without Props story for #{componentName} component", :green
-    
-    define_name_vars(componentName)
-    define_component_vars
-
-
-    generate_story_file(componentName)
-    link_story_file(componentName)
-
+    addStory_main(componentName)
   end
 
 private
