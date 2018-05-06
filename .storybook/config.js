@@ -25,6 +25,7 @@ function loadStories() {
   require('../src/stories/code_header.js');
   require('../src/stories/code_header.js');
   require('../src/stories/code_header.js');
+  require('../src/stories/code_header.js');
   // -- require_hook --
 }
 
