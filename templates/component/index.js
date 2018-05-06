@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import styles from './<%= @name_l %>.css';
-
 // -- import_hook --
 
 export class <%= @name_p %> extends Component {

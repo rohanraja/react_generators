@@ -25,7 +25,7 @@ class React < Thor
     define_component_vars
 
     generate_action_creator(componentName, actionCreatorName)
-
+    add_action_import_statement(componentName, actionCreatorName)
   end
 
 private
@@ -35,6 +35,12 @@ private
     temp_file = Tempfile.new("templateDummy.temp")
     template(templateFile, temp_file.path, {:force => true})
     return temp_file.path
+  end
+
+
+  def gen_import_statement(className, compFileName, relative_level = 1)
+    import_statemeht = "import { #{className} } from '#{ comp_filepath(compFileName, relative_level, false) }'"
+    return import_statemeht
   end
 
   def generate_action_creator(componentName, actionCreatorName)
@@ -47,9 +53,15 @@ private
     hooksHelper.addFileAfterHook(comp_filepath(@actions_file) , "new_actionCreator", methodTempFile)
   end
 
+  def add_action_import_statement(componentName, actionCreatorName)
+    imp = gen_import_statement(actionCreatorName, @actions_file, 0)
+    hooksHelper = HooksHelper.new
+    hooksHelper.addLineAfterHook(comp_filepath(@index_file), "import", imp)
+  end
+
   def generate_react_redux_component
 
-    template("component/index.js", "#{comp_dir}/index.js")
+    template("component/index.js", comp_filepath(@index_file))
     template("component/types.js", "#{comp_dir}/types.js")
     template("component/reducers.js", comp_filepath(@reducer_file) )
     template("component/actions.js", comp_filepath(@actions_file))
@@ -73,17 +85,26 @@ private
 
   def comp_dir(relative_level = -1)
 
+    if relative_level == 0
+      return "."
+    end
+
     basePath = "src"
     if relative_level == 1
       basePath = ".."
     end
-    "#{basePath}/components/#{@name_p}"
+    
+    contDir = "#{basePath}/components"
+
+
+    "#{contDir}/#{@name_p}"
   end
 
 
   def define_component_vars()
     @reducer_file = "reducers.js"
     @actions_file = "actions.js"
+    @index_file = "index.js"
 
     @reducerName = "#{@name_p}Reducer"
     @stateName = @name_l
@@ -109,7 +130,7 @@ private
     define_name_vars(componentName)
     define_component_vars
 
-    @import_statemeht = "import { #{reducerName} } from '#{ comp_filepath(@reducer_file, 1, false) }'"
+    imp = gen_import_statement(reducerName, @reducer_file)
 
     @reducerDictLine = "#{stateVarName} : #{reducerName},"
 
@@ -118,7 +139,7 @@ private
 
     hooksHelper = HooksHelper.new
 
-    hooksHelper.addLineAfterHook(rootReducerPath, "import", @import_statemeht)
+    hooksHelper.addLineAfterHook(rootReducerPath, "import", imp)
     hooksHelper.addLineAfterHook(rootReducerPath, "reducerLine", @reducerDictLine)
 
   end
