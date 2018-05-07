@@ -5,6 +5,7 @@ require_relative 'path_helpers'
 require_relative 'action_creator'
 require_relative 'component_gen'
 require_relative 'template_helpers'
+require_relative 'create_reducer'
 require 'tempfile'
 
 class React < Thor
@@ -15,6 +16,7 @@ class React < Thor
   include PathHelpers
   include Story
   include ActionCreator
+  include CreateReducer
 
   source_root File.expand_path('templates', __dir__)
 
@@ -33,6 +35,12 @@ class React < Thor
   def addStory(componentName)
     say "Creating Without Props story for #{componentName} component", :green
     addStory_main(componentName)
+  end
+
+  desc "createReducer ComponentName stateVarName", "Creates a reducer inside the component and for the state variable"
+  def reducer(componentName, reducerName)
+    say "Creating Reducer #{reducerName}", :green
+    createReducer_main(componentName, reducerName)
   end
 
 private

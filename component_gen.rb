@@ -22,25 +22,4 @@ module ComponentGen
     copy_file("store/rootReducer.js", rootReducerPath, {:skip => true})
   end
 
-  def linkReducer(componentName, reducerName, stateVarName = "")
-    if stateVarName == ""
-      stateVarName = reducerName
-    end
-
-    define_name_vars(componentName)
-    define_component_vars
-
-    imp = gen_import_statement(reducerName, @reducer_file)
-
-    @reducerDictLine = "#{stateVarName} : #{reducerName},"
-
-    say @import_statemeht, :yellow
-    say @reducerDictLine, :yellow
-
-    hooksHelper = HooksHelper.new
-
-    hooksHelper.addLineAfterHook(rootReducerPath, "import", imp)
-    # hooksHelper.addLineAfterHook(rootReducerPath, "reducerLine", @reducerDictLine)
-
-  end
 end

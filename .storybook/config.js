@@ -26,6 +26,8 @@ function loadStories() {
   require('../src/stories/code_header.js');
   require('../src/stories/code_header.js');
   require('../src/stories/code_header.js');
+  require('../src/stories/code_header.js');
+  require('../src/stories/listview.js');
   // -- require_hook --
 }
 
