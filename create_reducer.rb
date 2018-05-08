@@ -14,6 +14,30 @@ module CreateReducer
   def generate_reducer(componentName, reducerName)
 
     tmpFile = "reducer/methodTemplate.js"
+    @reducerFilePath = "src/store/reducers/#{@reducerName}.js"
+
+    template(tmpFile, @reducerFilePath)
+  end
+
+
+  def linkReducer(componentName, reducerName, stateVarName = "")
+
+    say "Linking reducer #{reducerName} to combineReducer"
+    # imp = gen_import_statement(reducerName, @reducer_file)
+    imp = "import { #{reducerName} } from './reducers/#{reducerName}'" 
+    hooksHelper = HooksHelper.new
+    hooksHelper.addLineAfterHook(rootReducerPath, "import", imp)
+
+    if stateVarName != ""
+      @reducerDictLine = "#{stateVarName} : #{reducerName},"
+      hooksHelper.addLineAfterHook(rootReducerPath, "reducerLine", @reducerDictLine)
+    end
+
+  end
+
+  def generate_reducer_OLD(componentName, reducerName)
+
+    tmpFile = "reducer/methodTemplate.js"
     methodTempFile = getParsedTemplateFile(tmpFile)
 
     hooksHelper = HooksHelper.new
@@ -21,7 +45,7 @@ module CreateReducer
   end
 
 
-  def linkReducer(componentName, reducerName, stateVarName = "")
+  def linkReducer_OLD(componentName, reducerName, stateVarName = "")
 
     say "Linking reducer #{reducerName} to combineReducer"
     imp = gen_import_statement(reducerName, @reducer_file)
