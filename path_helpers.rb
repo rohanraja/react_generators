@@ -1,5 +1,9 @@
 module PathHelpers
 
+  def initStatePath
+    "src/store/initialState.js"
+  end
+
   def rootReducerPath
     "src/store/rootReducer.js"
   end

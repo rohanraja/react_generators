@@ -8,6 +8,7 @@ module CreateReducer
     @reducerName = "#{reducerName}Reducer"
     generate_reducer(componentName, @reducerName)
     linkReducer(componentName, @reducerName, @stateVar)
+    initState(componentName, @reducerName, @stateVar)
 
   end
 
@@ -33,6 +34,15 @@ module CreateReducer
       hooksHelper.addLineAfterHook(rootReducerPath, "reducerLine", @reducerDictLine)
     end
 
+  end
+  def initState(componentName, reducerName, stateVarName = "")
+    say "Adding to initialState.js "
+
+    hooksHelper = HooksHelper.new
+    if stateVarName != ""
+      @reducerDictLine = "#{stateVarName} : {},"
+      hooksHelper.addLineAfterHook(initStatePath, "initialState", @reducerDictLine)
+    end
   end
 
   def generate_reducer_OLD(componentName, reducerName)
