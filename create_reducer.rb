@@ -35,6 +35,14 @@ module CreateReducer
     end
 
   end
+
+  def addLineAfterHook(hook, fileName, value)
+    say "Adding #{value} to file #{fileName}"
+    hooksHelper = HooksHelper.new
+    hooksHelper.addLineAfterHook(fileName, hook, value)
+  end
+
+
   def initState(componentName, reducerName, stateVarName = "")
     say "Adding to initialState.js "
 

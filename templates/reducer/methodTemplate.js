@@ -5,6 +5,8 @@ import * as types from '../types'
 export function <%= @reducerName %>(state = initialState.<%= @stateVar %>, action) {
   switch (action.type) {
 
+    // -- actionCase_hook --
+
     default:
       return state
   }

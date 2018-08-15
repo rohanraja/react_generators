@@ -1,5 +1,17 @@
 module PathHelpers
 
+  def dataLoadActionsPath
+    "src/actions/dataLoadActions.js"
+  end
+
+  def reducerPathForVar(redVar)
+    "src/store/reducers/#{redVar}Reducer.js"
+  end
+
+  def typesPath
+    "src/store/types.js"
+  end
+
   def initStatePath
     "src/store/initialState.js"
   end

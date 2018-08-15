@@ -6,10 +6,12 @@ require_relative 'action_creator'
 require_relative 'component_gen'
 require_relative 'template_helpers'
 require_relative 'create_reducer'
+require_relative 'data_load'
 require 'tempfile'
 
 class React < Thor
   include Thor::Actions
+  include DataLoad
   include TemplateHelpers
   include ComponentBase
   include ComponentGen
@@ -41,6 +43,11 @@ class React < Thor
   def reducer(componentName, reducerName)
     say "Creating Reducer #{reducerName}", :green
     createReducer_main(componentName, reducerName)
+  end
+
+  desc "dataLoad reducerVar apiMethodName", "Connects reducer state with api server"
+  def dataLoad(reducerName, apiMethodName)
+    dataload(reducerName, apiMethodName)
   end
 
 private
