@@ -20,12 +20,14 @@ export class <%= @name_p %> extends Component {
 
 function mapStateToProps(state) {
   return {
+    // -- state_hook --
   };
 }
 
 
 const mapDispatchToProps = dispatch => {
   return {
+    // -- dispatch_hook --
   };
 }
 

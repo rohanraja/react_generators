@@ -7,6 +7,7 @@ require_relative 'component_gen'
 require_relative 'template_helpers'
 require_relative 'create_reducer'
 require_relative 'data_load'
+require_relative 'action_component'
 require 'tempfile'
 
 class React < Thor
@@ -18,6 +19,7 @@ class React < Thor
   include PathHelpers
   include Story
   include ActionCreator
+  include ActionComponent
   include CreateReducer
 
   source_root File.expand_path('templates', __dir__)
@@ -31,6 +33,12 @@ class React < Thor
   def actionCreator(componentName, actionCreatorName)
     say "Creating #{actionCreatorName} method for #{componentName} component", :green
     actionCreator_main(componentName, actionCreatorName)
+  end
+
+  desc "Add Action to component - compName, actionName", "Generates an action creator method, imports that in component and connects it to react"
+  def actionInComponent(componentName, actionName, fPath)
+    say "Creating #{actionName} action for #{componentName} component", :green
+    actComp(componentName, actionName, fPath)
   end
 
   desc "addStory", "Adds the component to the storybook for manual UI test"

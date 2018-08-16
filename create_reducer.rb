@@ -36,8 +36,13 @@ module CreateReducer
 
   end
 
-  def addLineAfterHook(hook, fileName, value)
+  def addLineAfterHook(hook, fileName, value, tmpFile="")
     say "Adding #{value} to file #{fileName}"
+    if !File.exist?(fileName) and !tmpFile.blank?
+      say "First creating from template file"
+      template(tmpFile, fileName)
+    end
+
     hooksHelper = HooksHelper.new
     hooksHelper.addLineAfterHook(fileName, hook, value)
   end

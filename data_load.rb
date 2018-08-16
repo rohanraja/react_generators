@@ -4,10 +4,10 @@ module DataLoad
 
     typeVarName = "#{reducerName}_RECEIEVED"
     typeLine = "export const #{typeVarName} = '#{typeVarName}' ;"
-    addLineAfterHook("newActionType", typesPath, typeLine)
+    addLineAfterHook("newActionType", typesPath, typeLine, "store/types.js")
 
     dataLoadLine = "loadDataForReducerVar(\"#{apiName}\", types.#{typeVarName})"
-    addLineAfterHook("loadMethodCall", dataLoadActionsPath, dataLoadLine)
+    addLineAfterHook("loadMethodCall", dataLoadActionsPath, dataLoadLine, "actions/dataLoadActions.js")
 
     actionCaseBlock = %{
 
