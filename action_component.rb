@@ -9,7 +9,7 @@ module ActionComponent
 
   def addDispatchCall(compName, actName)
 
-    dp = "#{actName} : () => dispatch(#{actName}())"
+    dp = "#{actName} : () => dispatch(#{actName}()),"
     addLineAfterHook("dispatch", comp_filepath(@index_file), dp) 
   end
 

@@ -7,6 +7,7 @@ module DataLoad
     addLineAfterHook("newActionType", typesPath, typeLine, "store/types.js")
 
     dataLoadLine = "loadDataForReducerVar(\"#{apiName}\", types.#{typeVarName})"
+    dataLoadLine = "rpcCall(\"#{apiName}\", \"get\", [], types.#{typeVarName})(dispatch, getState);"
     addLineAfterHook("loadMethodCall", dataLoadActionsPath, dataLoadLine, "actions/dataLoadActions.js")
 
     actionCaseBlock = %{
